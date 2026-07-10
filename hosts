@@ -1,0 +1,5 @@
+linux_nodes:
+  hosts:
+    testUbuntu:
+      ansible_host: 192.168.10.216
+      ansible_user: ansible

@@ -1,0 +1,10 @@
+secret_key: "CHANGEME_ENTER_SECRET_KEY"
+debug_mod: False
+
+db_pass: "CHANGEME_ENTER_YOUR_PASSWORD"
+db_user: "db_user"
+db_name: "my_database"
+
+super_user_login: "super_user_login"
+super_user_email: "super_user_email"
+super_user_pass: "super_user_password"

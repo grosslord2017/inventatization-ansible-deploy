@@ -1,0 +1,37 @@
+#---
+- name: Deploy inventarization
+  hosts: hosts
+  gather_facts: no
+  vars_files:
+    - vars/default.yml
+
+  tasks:
+
+    - name: Installing git
+      ansible.builtin.apt:
+        name: git
+        state: present
+
+    - name: Check if inventarization directoy exists
+      ansible.builtin.stat:
+        path: /opt/inventarization-dockerized
+      register: inventarization
+
+    - name: Clonning inventarization repository
+      ansible.builtin.git:
+        repo: 'https://github.com/grosslord2017/inventatization'
+        dest: /opt/inventarization-dockerized
+        version: main
+      when: not inventarization.stat.exists
+
+    - name: Create .env template
+      ansible.builtin.template:
+        src: templates/.env.j2
+        dest: /opt/inventarization-dockerized/.env
+        mode: "6000"
+
+    - name: Start inventarization (docker-compose up)
+      ansible.builtin.command:
+        cmd: docker compose up -d
+        chdir: /opt/inventarization-dockerized
+      changed_when: false
