@@ -1,6 +1,7 @@
 #---
 - name: Deploy inventarization
-  hosts: hosts
+  hosts: linux_nodes
+  become: yes
   gather_facts: no
   vars_files:
     - vars/default.yml
